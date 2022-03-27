@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+service FileServer {
+    // Downloading file
+    rpc FileDownload(FileDownloadReq) returns (stream FileDownloadRsp) {}
+    // Get list files
+    rpc GetFileList(GetListReq) returns (stream GetListRsp) {}
+    // Uploading file
+    rpc FileUpload(stream FileUploadReq) returns (FileUploadRsp) {}
+}
+// messages for downloading file
+message FileDownloadReq {
+    string name = 1;
+}
+
+message FileDownloadRsp {
+    bytes data = 1;
+    string name = 2;
+    int64 size = 3;
+}
+
+// messages for get list files
+message GetListReq {
+}
+
+message GetListRsp {
+    string name = 1;
+    int64 size = 2;
+}
+
+// message for upload file to server
+message FileUploadReq {
+    bytes data = 1;
+    string name = 2;
+    int64 size = 3;
+}
+
+message FileUploadRsp {
+    string status = 1;
+}
